@@ -1,0 +1,26 @@
+{
+    "name": "shikshana",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "author": "vinesh",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.5",
+        "es6-promise": "^4.2.5",
+        "express": "^4.16.4",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.4.6",
+        "mongoose-timestamp": "^0.6.0",
+        "opossum": "^1.10.1",
+        "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "coveralls": "^3.0.2",
+        "nyc": "^13.3.0"
+    }
+}
