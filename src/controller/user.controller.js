@@ -55,37 +55,40 @@ function checkLogin(req, res) {
             "role": "ADMIN",
             "token": token
         });
-    }
-    userDao.findByEmailAndCollege(user.emailId, user.collegeId).
-        then((data) => {
-            if (data.length === 0) {
-                res.send({
-                    "message": "Invalid User Credentials",
-                    "status": "403"
-                })
-            }
-            else {
-                let userFromDb = data[0];
-                if (userFromDb.password === user.password) {
-                    const token = auth.generateToken(userFromDb);
-                    res.send({
-                        "message": "Login successful in as " + userFromDb.name,
-                        "status": "200",
-                        "role": userFromDb.role,
-                        "token": token
-                    });
-                }
-                else {
+    } else {
+        userDao.findByEmailAndCollege(user.emailId, user.collegeId).
+            then((data) => {
+                if (data.length === 0) {
                     res.send({
                         "message": "Invalid User Credentials",
                         "status": "403"
-                    });
+                    })
                 }
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+                else {
+                    let userFromDb = data[0];
+                    if (userFromDb.password === user.password) {
+                        const token = auth.generateToken(userFromDb);
+                        res.send({
+                            "message": "Login successful as " + userFromDb.name,
+                            "status": "200",
+                            "role": userFromDb.role,
+                            "token": token
+                        });
+                    }
+                    else {
+                        res.send({
+                            "message": "Invalid User Credentials",
+                            "status": "403"
+                        });
+                    }
+                }
+
+            })
+
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 }
 
 function deleteUser(req, res) {
